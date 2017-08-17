@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: create config file
+      copy:
+        content: >
+          {
+            "metrics-addr" : "127.0.0.1:9323",
+            "experimental" : true
+          }
+        dest: /etc/docker/daemon.json
+    - name: restart docker
+      command: systemctl restart docker
